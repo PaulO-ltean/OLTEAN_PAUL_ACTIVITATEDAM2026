@@ -1,4 +1,6 @@
 package com.example.seminar3;
 
-public class ActivitateRezultat {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class ActivitateRezultat extends AppCompatActivity {
 }
