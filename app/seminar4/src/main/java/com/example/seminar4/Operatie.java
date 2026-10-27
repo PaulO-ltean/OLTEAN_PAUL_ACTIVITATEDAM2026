@@ -57,4 +57,11 @@ public class Operatie {
     public void setCompletata(Boolean completata) {
         this.completata = completata;
     }
+
+    @Override
+    public String toString() {
+        return "Operație: " + nOpeartie + " (Operator: " + nOperator + ")\n" +
+                "Tip: " + tip + " | Durată (ore): " + durataOre + "\n" +
+                "Completată: " + completata;
+    }
 }

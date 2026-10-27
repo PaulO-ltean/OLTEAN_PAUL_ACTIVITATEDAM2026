@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        />
-    <EditText
-        android:id="@+id/nume_ET"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/introduceti_numele"
-        android:inputType="text"
-        />
-    <CheckBox
-        android:id="@+id/esti_student"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/esti_student"
-        />
+        android:text="@string/main_activity"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="24dp" />
 
     <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="culegeDate"
-            android:text="@string/apasa"
-        />
+        android:id="@+id/btn_deschide_formular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/begin_activity" />
+
+    <TextView
+        android:id="@+id/tv_rezultat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textSize="18sp"
+        android:text="@string/placeholder_text" />
 
 </LinearLayout>
