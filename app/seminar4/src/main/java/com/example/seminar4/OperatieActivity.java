@@ -43,15 +43,15 @@ public class OperatieActivity extends AppCompatActivity {
             Switch swCompletata = findViewById(R.id.switch_completata);
 
             String nOperator = etOperator.getText().toString();
-            String nOpeartie = spinnerOperatie.getSelectedItem().toString(); // luat din Spinner
-            Float durataOre = ratingDurata.getRating(); // luat din RatingBar
-            Boolean completata = swCompletata.isChecked(); // luat din Switch
+            String nOpeartie = spinnerOperatie.getSelectedItem().toString();
+            Float durataOre = ratingDurata.getRating();
+            Boolean completata = swCompletata.isChecked();
 
             String tip = "Necunoscut";
             int checkedId = rgTip.getCheckedRadioButtonId();
             if (checkedId != -1) {
                 RadioButton rb = findViewById(checkedId);
-                tip = rb.getText().toString(); // luat din RadioButton
+                tip = rb.getText().toString();
             }
 
             // Crearea obiectului strict cu cele 5 câmpuri originale

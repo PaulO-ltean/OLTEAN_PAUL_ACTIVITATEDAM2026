@@ -8,26 +8,17 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvRezultat;
 
-    private final ActivityResultLauncher<Intent> launcherActivitati = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    // Extragerea obiectului transmis prin Bundle/Intent
-                    Operatie opReturnata = (Operatie) result.getData().getSerializableExtra("operatie_rezultat");
+    private ArrayList<Operatie> listaOperatii = new ArrayList<>();
 
-                    if (opReturnata != null) {
-                        tvRezultat.setText(opReturnata.toString());
-                        Toast.makeText(this, "Obiect creat de: " + opReturnata.getnOperator(), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +30,30 @@ public class MainActivity extends AppCompatActivity {
 
         btnDeschideFormular.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, OperatieActivity.class);
-            launcherActivitati.launch(intent);
+            startActivityForResult(intent, 1);
         });
+
+        Button btnDeschideListView = findViewById(R.id.btn_deschidere_listView);
+
+        btnDeschideListView.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this, ActivitateLista.class);
+            intent.putExtra("lista_operatii", listaOperatii);
+            startActivity(intent);
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            Operatie opReturnata = (Operatie) data.getSerializableExtra("operatie_rezultat");
+
+            if (opReturnata != null) {
+                listaOperatii.add(opReturnata);
+                tvRezultat.setText(opReturnata.toString());
+                Toast.makeText(this, "Obiect creat de: " + opReturnata.getnOperator(), Toast.LENGTH_LONG).show();
+
+            }
+        }
     }
 }

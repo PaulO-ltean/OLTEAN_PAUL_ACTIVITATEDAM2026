@@ -1,6 +1,8 @@
 package com.example.seminar4;
 
-public class Operatie {
+import java.io.Serializable;
+
+public class Operatie implements Serializable {
     String  tip;
     String nOpeartie;
     String nOperator;

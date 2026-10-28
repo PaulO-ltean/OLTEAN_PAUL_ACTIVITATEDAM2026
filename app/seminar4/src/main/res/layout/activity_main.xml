@@ -19,6 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/begin_activity" />
+    <Button
+        android:id="@+id/btn_deschidere_listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/list_view"
+        />
 
     <TextView
         android:id="@+id/tv_rezultat"

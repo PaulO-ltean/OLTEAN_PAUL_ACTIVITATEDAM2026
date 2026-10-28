@@ -27,4 +27,6 @@
     <string name="main_activity">Main Activity</string>
     <string name="begin_activity">Incepe</string>
     <string name="placeholder_text">Placeholder text</string>
+    <string name="list_view">List View</string>
+    <string name="lista_de_opera_ii">Lista de Operații</string>
 </resources>
