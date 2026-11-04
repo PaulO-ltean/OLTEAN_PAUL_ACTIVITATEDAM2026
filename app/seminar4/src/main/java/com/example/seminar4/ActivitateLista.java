@@ -1,5 +1,6 @@
 package com.example.seminar4;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,8 +17,9 @@ import java.util.ArrayList;
 public class ActivitateLista extends AppCompatActivity {
 
     public ArrayList<Operatie> lista;
-    public ArrayAdapter<Operatie> adapter;
-
+    //public ArrayAdapter<Operatie> adapter;
+    private int  idModificat=0;
+    private OperatieAdapter adapter=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +31,17 @@ public class ActivitateLista extends AppCompatActivity {
         if (lista == null) {
             lista = new ArrayList<>();
         }
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lista);
+        adapter = new OperatieAdapter(lista, getApplicationContext(), R.layout.custom_layout_lv);
+
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intentModifica= new Intent(getApplicationContext(), OperatieActivity.class);
+            intentModifica.putExtra("lista operatii", lista.get(position));
+            idModificat=position;
+            startActivityForResult(intentModifica,209);
             Operatie opSelectata = lista.get(position);
-            Toast.makeText(ActivitateLista.this, "Ai selectat:\n" + opSelectata.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), lista.get(position).toString(), Toast.LENGTH_SHORT).show();
         });
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
 

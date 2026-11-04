@@ -1,8 +1,11 @@
 package com.example.seminar4;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
-public class Operatie implements Serializable {
+public class Operatie implements Parcelable {
     String  tip;
     String nOpeartie;
     String nOperator;
@@ -19,6 +22,50 @@ public class Operatie implements Serializable {
         this.durataOre = durataOre;
         this.completata = completata;
     }
+
+    protected Operatie(Parcel in) {
+        tip = in.readString();
+        nOpeartie = in.readString();
+        nOperator = in.readString();
+        if (in.readByte() == 0) {
+            durataOre = null;
+        } else {
+            durataOre = in.readFloat();
+        }
+        byte tmpCompletata = in.readByte();
+        completata = tmpCompletata == 0 ? null : tmpCompletata == 1;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(tip);
+        dest.writeString(nOpeartie);
+        dest.writeString(nOperator);
+        if (durataOre == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeFloat(durataOre);
+        }
+        dest.writeByte((byte) (completata == null ? 0 : completata ? 1 : 2));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Operatie> CREATOR = new Creator<Operatie>() {
+        @Override
+        public Operatie createFromParcel(Parcel in) {
+            return new Operatie(in);
+        }
+
+        @Override
+        public Operatie[] newArray(int size) {
+            return new Operatie[size];
+        }
+    };
 
     public String getTip() {
         return tip;
