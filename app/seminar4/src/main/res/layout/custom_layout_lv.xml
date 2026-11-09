@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
     <TextView
         android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         android:id="@+id/Display_Tip"/>
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -23,15 +24,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/Display_Operator"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/Display_Ore"/>
+                android:id="@+id/Display_Ore"
+                android:minHeight="48dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"/>
             <CheckBox
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/Display_completata"/>
-
+                android:id="@+id/Display_completata"
+                android:minHeight="48dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"/>
+        </LinearLayout>
         </LinearLayout>
 
 </LinearLayout>

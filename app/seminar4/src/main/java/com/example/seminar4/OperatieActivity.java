@@ -21,18 +21,7 @@ public class OperatieActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_operatie);
-        Intent it=getIntent();
-        if(it.hasExtra("lista operatii")){
-            Operatie operatieDeModificat=it.getParcelableExtra("operatie");
-            EditText etOperator = findViewById(R.id.et_nume_operator);
-            RadioGroup rgTip = findViewById(R.id.rg_tip);
-            RatingBar ratingDurata = findViewById(R.id.rating_durata);
-            Switch swCompletata = findViewById(R.id.switch_completata);
-            Spinner spinnerOperatie = findViewById(R.id.spinner_operatie);
 
-            etOperator.setText(operatieDeModificat.getnOperator());
-            spinnerOperatie.setSelection(operatieDeModificat.getTip());
-        }
         EditText etOperator = findViewById(R.id.et_nume_operator);
         RadioGroup rgTip = findViewById(R.id.rg_tip);
         RadioButton rbIngineresc = findViewById(R.id.rb_ingineresc);
@@ -48,13 +37,42 @@ public class OperatieActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, optiuniOperatii);
         spinnerOperatie.setAdapter(adapter);
 
+        // 3. Verificăm dacă am deschis activitatea pentru EDITARE[cite: 10]
+        Intent it = getIntent();
+        if(it.hasExtra("operatie")) {
+            Operatie operatieDeModificat = it.getParcelableExtra("operatie"); //[cite: 10]
+
+            if (operatieDeModificat != null) {
+                etOperator.setText(operatieDeModificat.getnOperator());
+
+                ratingDurata.setRating(operatieDeModificat.getDurataOre());
+                swCompletata.setChecked(operatieDeModificat.getCompletata());
+
+                if ("Ingineresc".equals(operatieDeModificat.getTip())) {
+                    rbIngineresc.setChecked(true);
+                } else if ("Digital".equals(operatieDeModificat.getTip())) {
+                    rbDigital.setChecked(true);
+                }
+
+
+                for (int i = 0; i < optiuniOperatii.length; i++) {
+                    if (optiuniOperatii[i].equals(operatieDeModificat.getnOpeartie())) {
+                        spinnerOperatie.setSelection(i);
+                        break;
+                    }
+                }
+
+
+                btnSalvare.setText("SALVEAZA MODIFICARILE");
+            }
+        }
+
 
         btnSalvare.setOnClickListener(v -> {
             if (!cbConfirmare.isChecked()) {
-                Toast.makeText(this, "Bifați confirmarea datelor (CheckBox)!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Bifeaza confirmarea datelor (CheckBox)!", Toast.LENGTH_SHORT).show();
                 return;
             }
-
 
             String nOperator = etOperator.getText().toString();
             String nOpeartie = spinnerOperatie.getSelectedItem().toString();
@@ -68,12 +86,9 @@ public class OperatieActivity extends AppCompatActivity {
                 tip = rb.getText().toString();
             }
 
-
             Operatie op = new Operatie(tip, nOpeartie, nOperator, durataOre, completata);
 
-
             Intent intent = new Intent();
-
             intent.putExtra("operatie_rezultat", op);
             setResult(RESULT_OK, intent);
             finish();

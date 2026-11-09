@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnDeschideListView.setOnClickListener(v->{
             Intent intent = new Intent(MainActivity.this, ActivitateLista.class);
-            intent.putExtra("lista_operatii", listaOperatii);
+            intent.putParcelableArrayListExtra("lista_operatii", listaOperatii);
             startActivity(intent);
         });
     }
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-            Operatie opReturnata = (Operatie) data.getSerializableExtra("operatie_rezultat");
+            Operatie opReturnata = (Operatie) data.getParcelableExtra("operatie_rezultat");
 
             if (opReturnata != null) {
                 listaOperatii.add(opReturnata);
@@ -56,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 }

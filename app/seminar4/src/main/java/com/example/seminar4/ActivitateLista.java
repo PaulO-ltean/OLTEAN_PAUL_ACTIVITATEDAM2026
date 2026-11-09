@@ -7,6 +7,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -18,28 +19,33 @@ public class ActivitateLista extends AppCompatActivity {
 
     public ArrayList<Operatie> lista;
     //public ArrayAdapter<Operatie> adapter;
-    private int  idModificat=0;
-    private OperatieAdapter adapter=null;
+    private int idModificat = 0;
+    private OperatieAdapter adapter = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_activitate_lista);
-        ListView listView=findViewById(R.id.listView_afisare);
-        lista = (ArrayList<Operatie>) getIntent().getSerializableExtra("lista_operatii");
+        ListView listView = findViewById(R.id.listView_afisare);
+
+        lista = getIntent().getParcelableArrayListExtra("lista_operatii");
+
+        Toast.makeText(this, "Lista primită are: " + lista.size() + " elemente", Toast.LENGTH_LONG).show();
         if (lista == null) {
             lista = new ArrayList<>();
         }
-        adapter = new OperatieAdapter(lista, getApplicationContext(), R.layout.custom_layout_lv);
+        lista.add(new Operatie("Ingineresc", "Operatie Test", "Operator Test", 9.5f, true));
+        adapter = new OperatieAdapter(lista, ActivitateLista.this, R.layout.custom_layout_lv);
 
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intentModifica= new Intent(getApplicationContext(), OperatieActivity.class);
-            intentModifica.putExtra("lista operatii", lista.get(position));
-            idModificat=position;
-            startActivityForResult(intentModifica,209);
+            Intent intentModifica = new Intent(getApplicationContext(), OperatieActivity.class);
+            intentModifica.putExtra("operatie", lista.get(position));
+            idModificat = position;
+            startActivityForResult(intentModifica, 209);
             Operatie opSelectata = lista.get(position);
             Toast.makeText(getApplicationContext(), lista.get(position).toString(), Toast.LENGTH_SHORT).show();
         });
@@ -56,5 +62,20 @@ public class ActivitateLista extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+            if (requestCode == 209) {
+                Operatie operatieEditata = data.getParcelableExtra("operatie_rezultat");
+                if (operatieEditata != null) {
+                    lista.set(idModificat, operatieEditata);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }
     }
 }
