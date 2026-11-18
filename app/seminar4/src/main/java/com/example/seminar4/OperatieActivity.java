@@ -37,10 +37,10 @@ public class OperatieActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, optiuniOperatii);
         spinnerOperatie.setAdapter(adapter);
 
-        // 3. Verificăm dacă am deschis activitatea pentru EDITARE[cite: 10]
+
         Intent it = getIntent();
         if(it.hasExtra("operatie")) {
-            Operatie operatieDeModificat = it.getParcelableExtra("operatie"); //[cite: 10]
+            Operatie operatieDeModificat = it.getParcelableExtra("operatie");
 
             if (operatieDeModificat != null) {
                 etOperator.setText(operatieDeModificat.getnOperator());

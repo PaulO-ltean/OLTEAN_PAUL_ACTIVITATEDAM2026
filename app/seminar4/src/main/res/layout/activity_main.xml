@@ -34,4 +34,10 @@
         android:textSize="18sp"
         android:text="@string/placeholder_text" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_google"
+        android:text="@string/deschide_lista_img"/>
+
 </LinearLayout>

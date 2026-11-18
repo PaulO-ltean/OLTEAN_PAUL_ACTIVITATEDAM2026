@@ -40,6 +40,13 @@ public class MainActivity extends AppCompatActivity {
             intent.putParcelableArrayListExtra("lista_operatii", listaOperatii);
             startActivity(intent);
         });
+
+        Button btn_img_lv = findViewById(R.id.btn_google);
+
+        btn_img_lv.setOnClickListener(v->{
+            Intent intent = new Intent(MainActivity.this, ImagesActivity.class);
+            startActivity(intent);
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
